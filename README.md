@@ -5,7 +5,7 @@ Book your IRCTC Tatkal Ticket using Your Credentials
 
 ✨You can update your irctcUserName and irctcPassword for Logging in✨
 
-      🚀You can add your Passenger details as required🚀
+🚀You can add your Passenger details as required🚀
       
 Your Boking can be of 1 member or family booking, If 1 member then add member details in "Individual Member" section
 
