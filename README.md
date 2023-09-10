@@ -1,13 +1,16 @@
 # IRCTC_Tatkal_Ticket_Booking
 Book your IRCTC Tatkal Ticket using Your Credentials
 
+To run this code use Eclipse or Intellij, and do Maven Install
+
+
 You can update your username and password for Logging in
 
 You can add your Passenger details as required
 Your Boking can be of 1 member or family booking, If 1 member then add member details in "Individual Member" section
 
 
-To run this code use Eclipse or Intellij, and do Maven Install
+
 
 Enjoy!
 
