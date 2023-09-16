@@ -3,11 +3,17 @@ package StepDefinitions;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.Factory.DriverFactory;
+import org.pagesPerSite.loginPage;
 
-public class irctcBookingStepsExecutionPage extends baseClass {
+public class irctcBookingStepsExecutionPage {
+
+    private loginPage loginPage = new loginPage(DriverFactory.getDriver());
+
 
     @Given("^User has Logged in successfully with proper login details$")
     public void user_has_logged_in_successfully_with_proper_login_details() {
+
 
     }
 
