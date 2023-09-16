@@ -1,4 +1,4 @@
-package org.StepDefinitions;
+package StepDefinitions;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -9,7 +9,6 @@ public class irctcBookingStepsExecutionPage extends baseClass {
     @Given("^User has Logged in successfully with proper login details$")
     public void user_has_logged_in_successfully_with_proper_login_details() {
 
-        driver.get("google.com");
     }
 
     @Given("^closed popup of last transaction details if open$")

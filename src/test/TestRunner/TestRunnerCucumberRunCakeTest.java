@@ -7,8 +7,8 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(
         plugin = { "html:cucumber-reports/htmlreprt.html", "json:cucumber-reports/report.json" },
-        features = {"src/test/java/Resources/AcceptanceTest"},
-        glue = {"org/StepDefinitions"},
+        features = {"src/test/Resources/AcceptanceTest"},
+        glue = {"src/test/java/StepDefinitions"},
         publish = true,
         monochrome=true,
         dryRun=true,
@@ -17,4 +17,5 @@ import org.junit.runner.RunWith;
 
 
 public class TestRunnerCucumberRunCakeTest {
+
 }
