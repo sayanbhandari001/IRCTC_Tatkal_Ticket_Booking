@@ -6,8 +6,8 @@ import io.cucumber.java.en.When;
 
 public class irctcBookingStepsExecutionPage extends baseClass {
 
-    @Given("User has already Logged in successfully with proper login details")
-    public void user_has_already_logged_in_successfully_with_proper_login_details() {
+    @Given("User has Logged in successfully with proper login details")
+    public void user_has_logged_in_successfully_with_proper_login_details() {
 
 
     }
