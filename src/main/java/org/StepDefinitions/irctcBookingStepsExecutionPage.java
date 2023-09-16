@@ -6,13 +6,13 @@ import io.cucumber.java.en.When;
 
 public class irctcBookingStepsExecutionPage extends baseClass {
 
-    @Given("User has Logged in successfully with proper login details")
+    @Given("^User has Logged in successfully with proper login details$")
     public void user_has_logged_in_successfully_with_proper_login_details() {
 
-
+        driver.get("google.com");
     }
 
-    @Given("closed popup of last transaction details if open")
+    @Given("^closed popup of last transaction details if open$")
     public void closed_popup_of_last_transaction_details_if_open() {
 
 
@@ -42,7 +42,7 @@ public class irctcBookingStepsExecutionPage extends baseClass {
 
     }
 
-    @Then("As per Class selection select refresh, get the vacancy count")
+    @Then("^As per Class selection select refresh, get the vacancy count$")
     public void as_per_class_selection_select_refresh_get_the_vacancy_count() {
 
 
@@ -60,31 +60,31 @@ public class irctcBookingStepsExecutionPage extends baseClass {
 
     }
 
-    @Then("click on corresponding book now button and if any popup displayed click on yes and proceed further")
+    @Then("^click on corresponding book now button and if any popup displayed click on yes and proceed further$")
     public void click_on_corresponding_book_now_button_and_if_any_popup_displayed_click_on_yes_and_proceed_further() {
 
 
     }
 
-    @Then("fill individual or family Passenger Details such as Name,age, gender, India as country and preference as No preference for")
+    @Then("^fill individual or family Passenger Details such as Name,age, gender, India as country and preference as No preference for$")
     public void fill_individual_or_family_passenger_details_such_as_name_age_gender_india_as_country_and_preference_as_no_preference_for() {
 
 
     }
 
-    @Then("consider adding customer phone number")
+    @Then("^consider adding customer phone number$")
     public void consider_adding_customer_phone_number() {
 
 
     }
 
-    @Then("Select Payment option as bhim pay")
+    @Then("^Select Payment option as bhim pay$")
     public void select_payment_option_as_bhim_pay() {
 
 
     }
 
-    @Then("click continue")
+    @Then("^click continue$")
     public void click_continue() {
 
 
@@ -96,7 +96,7 @@ public class irctcBookingStepsExecutionPage extends baseClass {
 
     }
 
-    @Then("Popup with Captcha to fill by user")
+    @Then("^Popup with Captcha to fill by user$")
     public void popup_with_captcha_to_fill_by_user() {
 
 

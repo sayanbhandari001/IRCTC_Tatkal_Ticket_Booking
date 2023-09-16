@@ -28,10 +28,12 @@ public class hooksForExecution extends baseClass {
 
         //delete all Cookies
         driver.manage().deleteAllCookies();
+
     }
 
     @After
     public void afterExecutionofIRCTC() {
+
         driver.quit();
     }
 }

@@ -1,130 +1,183 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.example</groupId>
-  <artifactId>IrctcTatlakTicketBooking</artifactId>
-  <version>1.0-SNAPSHOT</version>
+    <groupId>org.example</groupId>
+    <artifactId>IrctcTatlakTicketBooking</artifactId>
+    <version>1.0-SNAPSHOT</version>
 
-  <name>IrctcTatlakTicketBooking</name>
-  <url>https://www.irctc.co.in/</url>
+    <name>IrctcTatlakTicketBooking</name>
+    <url>https://www.irctc.co.in/</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
-  </properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+        <junit.version>4.13.2</junit.version>
+        <cucumber.version>7.7.0</cucumber.version>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.version>3.11.0</maven.compiler.version>
 
-  <dependencies>
+    </properties>
 
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
-    </dependency>
+    <dependencies>
 
-    <dependency>
-      <groupId>io.cucumber</groupId>
-      <artifactId>cucumber-java</artifactId>
-      <version>7.7.0</version>
-    </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
 
-    <dependency>
-      <groupId>io.cucumber</groupId>
-      <artifactId>cucumber-junit</artifactId>
-      <version>7.7.0</version>
-      <scope>test</scope>
-    </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
 
-    <dependency>
-      <groupId>org.seleniumhq.selenium</groupId>
-      <artifactId>selenium-java</artifactId>
-      <version>4.12.0</version>
-    </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>7.11.1</version>
+        </dependency>
 
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.13.1</version>
-      <scope>compile</scope>
-    </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.12.0</version>
+        </dependency>
 
-    <dependency>
-      <groupId>io.cucumber</groupId>
-      <artifactId>cucumber-junit</artifactId>
-      <version>7.7.0</version>
-      <scope>compile</scope>
-    </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.1</version>
+            <scope>compile</scope>
+        </dependency>
 
-    <dependency>
-      <groupId>net.sourceforge.tess4j</groupId>
-      <artifactId>tess4j</artifactId>
-      <version>5.7.0</version>
-    </dependency>
+        <dependency>
+            <groupId>net.sourceforge.tess4j</groupId>
+            <artifactId>tess4j</artifactId>
+            <version>5.7.0</version>
+        </dependency>
 
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.17</version>
-    </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
 
-  </dependencies>
+        <!-- https://mvnrepository.com/artifact/tech.grasshopper/extentreports-cucumber7-adapter -->
+        <dependency>
+            <groupId>tech.grasshopper</groupId>
+            <artifactId>extentreports-cucumber7-adapter</artifactId>
+            <version>1.14.0</version>
+        </dependency>
 
-  <build>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.22.0</version>
-          <configuration>
-            <parallel>methods</parallel>
-            <useUnlimitedThreads>true</useUnlimitedThreads>
-          </configuration>
-        </plugin>
-        <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
-        <plugin>
-          <artifactId>maven-clean-plugin</artifactId>
-          <version>3.1.0</version>
-        </plugin>
-        <!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
-        <plugin>
-          <artifactId>maven-resources-plugin</artifactId>
-          <version>3.0.2</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.8.0</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.22.1</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>3.0.2</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-install-plugin</artifactId>
-          <version>2.5.2</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-deploy-plugin</artifactId>
-          <version>2.8.2</version>
-        </plugin>
-        <!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
-        <plugin>
-          <artifactId>maven-site-plugin</artifactId>
-          <version>3.7.1</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-project-info-reports-plugin</artifactId>
-          <version>3.0.0</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-  </build>
+    </dependencies>
+
+    <build>
+        <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven.compiler.version}</version>
+                    <configuration>
+                        <encoding>UTF-8</encoding>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.1.0</version>
+                    <configuration>
+                        <!--                        <includes>-->
+                        <!--                            <include>**/ParallelRun.java</include>-->
+                        <!--                        </includes>-->
+                        <parallel>methods</parallel>
+                        <!--                        <threadCount>4</threadCount>-->
+                        <!--                        <useUnlimitedThreads>false</useUnlimitedThreads>-->
+                        <useUnlimitedThreads>true</useUnlimitedThreads>
+                    </configuration>
+                </plugin>
+
+                <!--                <plugin>-->
+                <!--                    <groupId>org.apache.maven.plugins</groupId>-->
+                <!--                    <artifactId>maven-failsafe-plugin</artifactId>-->
+                <!--                    <version>3.0.0-M3</version>-->
+                <!--                    <executions>-->
+                <!--                        <execution>-->
+                <!--                            <goals>-->
+                <!--                                <goal>integration-test</goal>-->
+                <!--                            </goals>-->
+                <!--                            <configuration>UNCOMMENT - To add any exclusions if required-->
+                <!--                                <excludes>-->
+                <!--                                    <exclude>**/*IT*.java</exclude>-->
+                <!--                                </excludes>-->
+                <!--                                <includes>UNCOMMENT BELOW LINE-->
+                <!--                                    - To execute feature files with a single runner-->
+                <!--                                    <include>**/MyTestRunner.java</include>-->
+                <!--                                    UNCOMMENT BELOW LINE - To execute feature files with multiple runners-->
+                <!--                                    <include>**/*Runner.java</include>-->
+                <!--                                </includes>-->
+                <!--                                UNCOMMENT BELOW 3 LINES - To execute using parallel or combination-->
+                <!--                                option-->
+                <!--                                <parallel>methods</parallel>-->
+                <!--                                <threadCount>4</threadCount>-->
+                <!--                                <perCoreThreadCount>true</perCoreThreadCount>-->
+                <!--                                UNCOMMENT BELOW 3 LINES - To execute using forking or combination option-->
+                <!--                                <forkCount>2</forkCount>-->
+                <!--                                <reuseForks>true</reuseForks>-->
+                <!--                                <reportsDirectory>${project.build.directory}/failsafe-reports_${surefire.forkNumber}-->
+                <!--                                </reportsDirectory>-->
+                <!--                            </configuration>-->
+                <!--                        </execution>-->
+                <!--                    </executions>-->
+                <!--                </plugin>-->
+                <!--                &lt;!&ndash; clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle &ndash;&gt;-->
+                <!--                <plugin>-->
+                <!--                    <artifactId>maven-clean-plugin</artifactId>-->
+                <!--                    <version>3.1.0</version>-->
+                <!--                </plugin>-->
+                <!--                &lt;!&ndash; default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging &ndash;&gt;-->
+                <!--                <plugin>-->
+                <!--                    <artifactId>maven-resources-plugin</artifactId>-->
+                <!--                    <version>3.0.2</version>-->
+                <!--                </plugin>-->
+                <!--                <plugin>-->
+                <!--                    <artifactId>maven-compiler-plugin</artifactId>-->
+                <!--                    <version>3.8.0</version>-->
+                <!--                </plugin>-->
+                <!--                <plugin>-->
+                <!--                    <artifactId>maven-surefire-plugin</artifactId>-->
+                <!--                    <version>2.22.1</version>-->
+                <!--                </plugin>-->
+                <!--                <plugin>-->
+                <!--                    <artifactId>maven-jar-plugin</artifactId>-->
+                <!--                    <version>3.0.2</version>-->
+                <!--                </plugin>-->
+                <!--                <plugin>-->
+                <!--                    <artifactId>maven-install-plugin</artifactId>-->
+                <!--                    <version>2.5.2</version>-->
+                <!--                </plugin>-->
+                <!--                <plugin>-->
+                <!--                    <artifactId>maven-deploy-plugin</artifactId>-->
+                <!--                    <version>2.8.2</version>-->
+                <!--                </plugin>-->
+                <!--                &lt;!&ndash; site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle &ndash;&gt;-->
+                <!--                <plugin>-->
+                <!--                    <artifactId>maven-site-plugin</artifactId>-->
+                <!--                    <version>3.7.1</version>-->
+                <!--                </plugin>-->
+                <!--                <plugin>-->
+                <!--                    <artifactId>maven-project-info-reports-plugin</artifactId>-->
+                <!--                    <version>3.0.0</version>-->
+                <!--                </plugin>-->
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>

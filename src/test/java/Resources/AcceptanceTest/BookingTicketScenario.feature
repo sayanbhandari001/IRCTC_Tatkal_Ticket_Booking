@@ -1,7 +1,7 @@
 Feature: Book a IRCTC Tatkal Ticket users
 
   Background:
-    Given User has already Logged in successfully with proper login details
+    Given User has Logged in successfully with proper login details
 
   @IRCTCBooking
   Scenario: Book Irctc ticket for registered user with passenger details provided
