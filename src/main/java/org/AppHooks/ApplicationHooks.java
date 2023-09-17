@@ -16,13 +16,13 @@ public class ApplicationHooks {
 
     private DriverFactory driverFactory;
     private WebDriver driver;
-    private ConfigReader configReader;
+    private ConfigReader reader;
     Properties prop;
 
     @Before(order = 0)
     public void getProperty() throws IOException {
-        configReader = new ConfigReader();
-        prop = configReader.init_prop();
+        reader = new ConfigReader();
+        prop = reader.init_prop();
     }
 
     @Before(order = 1)

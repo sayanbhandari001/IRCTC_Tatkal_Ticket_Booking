@@ -17,7 +17,7 @@ public class irctcBookingStepsExecutionPage {
     @Given("^User has Logged in successfully with proper login details$")
     public void user_has_logged_in_successfully_with_proper_login_details() {
 
-        DriverFactory.getDriver().get("");
+        DriverFactory.getDriver().get("google.com");
 //        loginPage.enterUserName(reader.init_prop().getProperty("irctcUsername"));
 //        loginPage.enterPassword("Opps@sam*95");
 //        loginPage.signInIRCTC();

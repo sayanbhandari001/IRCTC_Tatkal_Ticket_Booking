@@ -19,7 +19,6 @@ public class DriverFactory extends ApplicationHooks {
         //Launching browser
         System.out.println("Browser Started is " + browser);
         if (browser.equals("chrome")) {
-
             tldriver.set(new ChromeDriver());
         } else if (browser.equals("firefox")) {
             tldriver.set(new FirefoxDriver());
