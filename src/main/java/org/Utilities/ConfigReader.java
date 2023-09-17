@@ -10,7 +10,7 @@ public class ConfigReader {
     protected Properties configProp;
 
     //this is to read files from Config.properties Files
-    public Properties init_prop()  {
+    public Properties init_prop() {
         //Load properties File
         configProp = new Properties();
         try {

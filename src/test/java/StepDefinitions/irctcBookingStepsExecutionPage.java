@@ -4,25 +4,29 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.Factory.DriverFactory;
+import org.Utilities.ConfigReader;
+import org.junit.Assert;
 import org.pagesPerSite.loginPage;
 
 public class irctcBookingStepsExecutionPage {
 
-    //private ConfigReader reader;
+    private ConfigReader reader;
 
 
     private loginPage loginPage = new loginPage(DriverFactory.getDriver());
+    //private DriverFactory dfr = new DriverFactory ();
+
 
     @Given("^User has Logged in successfully with proper login details$")
     public void user_has_logged_in_successfully_with_proper_login_details() {
-
-        DriverFactory.getDriver().get("google.com");
-//        loginPage.enterUserName(reader.init_prop().getProperty("irctcUsername"));
-//        loginPage.enterPassword("Opps@sam*95");
-//        loginPage.signInIRCTC();
-//        String title = loginPage.getLoginPageTitle();
-//        System.out.println("Title of the page is " + title);
-//        Assert.assertTrue(title.contains("IRCTC Next Generation eTicketing System"));
+        DriverFactory.getDriver()
+                .get("google.com");
+        loginPage.enterUserName(reader.init_prop().getProperty("irctcUsername"));
+        loginPage.enterPassword("Opps@sam*95");
+        loginPage.signInIRCTC();
+        String title = loginPage.getLoginPageTitle();
+        System.out.println("Title of the page is " + title);
+        Assert.assertTrue(title.contains("IRCTC Next Generation eTicketing System"));
 
     }
 

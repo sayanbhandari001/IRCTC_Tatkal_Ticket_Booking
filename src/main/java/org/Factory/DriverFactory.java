@@ -9,9 +9,15 @@ import org.openqa.selenium.safari.SafariDriver;
 
 public class DriverFactory extends ApplicationHooks {
 
+    public static ThreadLocal<WebDriver> tldriver = new ThreadLocal<>();
     public WebDriver driver;
 
-    public static ThreadLocal<WebDriver> tldriver = new ThreadLocal<>();
+    /*
+        this is used to get the driver with threadlocal
+     */
+    public static synchronized WebDriver getDriver() {
+        return tldriver.get();
+    }
 
     //initializing the browser using provided browser details in Config file
     public WebDriver init_driver(String browser) {
@@ -32,12 +38,5 @@ public class DriverFactory extends ApplicationHooks {
         getDriver().manage().deleteAllCookies();
         getDriver().manage().window().maximize();
         return getDriver();
-    }
-
-    /*
-        this is used to get the driver with threadlocal
-     */
-    public static synchronized WebDriver getDriver(){
-        return tldriver.get();
     }
 }

@@ -14,10 +14,10 @@ import java.util.Properties;
 
 public class ApplicationHooks {
 
+    Properties prop;
     private DriverFactory driverFactory;
     private WebDriver driver;
     private ConfigReader reader;
-    Properties prop;
 
     @Before(order = 0)
     public void getProperty() throws IOException {

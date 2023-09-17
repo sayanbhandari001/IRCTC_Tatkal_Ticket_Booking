@@ -14,6 +14,7 @@ public class loginPage {
     private By password = By.xpath("//input[@formcontrolname='password' and @placeholder='Password']");
     private By signInButton = By.xpath("//button[@type='submit' and contains(text(),'SIGN IN')]");
     private By captaFill = By.xpath("//div[@class='captcha_div']");
+    private String url = "https://www.irctc.co.in/nget/train-search";
 
     //2. Constructor of the page class:
     public loginPage(WebDriver driver) {
@@ -21,6 +22,10 @@ public class loginPage {
     }
 
     //3. page actions: features(behavior) of the page the form of methods:
+    public void websiteURL() {
+        driver.get(url);
+    }
+
     public void loginAlertPopupFirstScreen() {
         driver.findElement(loginAlertPopupBeforeSignin).click();
     }
