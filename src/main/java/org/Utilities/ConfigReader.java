@@ -7,15 +7,14 @@ import java.util.Properties;
 
 public class ConfigReader {
 
-    private Properties configProp;
+    protected Properties configProp;
 
     //this is to read files from Config.properties Files
     public Properties init_prop()  {
         //Load properties File
         configProp = new Properties();
-        FileInputStream configPropfile = null;
         try {
-            configPropfile = new FileInputStream("./src/test/Resources/PleaseEnterUserInformationHere/config.properties");
+            FileInputStream configPropfile = new FileInputStream("src/test/Resources/PleaseEnterUserInformationHere/config.properties");
             configProp.load(configPropfile);
         } catch (FileNotFoundException e) {
             e.printStackTrace();

@@ -6,12 +6,13 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        plugin = { "html:cucumber-reports/htmlreprt.html", "json:cucumber-reports/report.json" },
+        plugin = { "pretty","html:cucumber-reports/htmlreprt.html", "json:cucumber-reports/report.json",
+            "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"},
         features = {"src/test/Resources/AcceptanceTest"},
-        glue = {"src/test/java/StepDefinitions"},
+        glue = {"StepDefinitions", "AppHooks"},
         publish = true,
         monochrome=true,
-        dryRun=true,
+        dryRun=false,
         tags = ("@IRCTCBooking")
 )
 

@@ -16,37 +16,35 @@ public class ApplicationHooks {
 
     private DriverFactory driverFactory;
     private WebDriver driver;
-    private ConfigReader reader;
+    private ConfigReader configReader;
     Properties prop;
-    private Scenario scenario;
-
 
     @Before(order = 0)
     public void getProperty() throws IOException {
-        reader = new ConfigReader();
-        prop = reader.init_prop();
+        configReader = new ConfigReader();
+        prop = configReader.init_prop();
     }
 
     @Before(order = 1)
     public void launchBrowser() {
         String browserName = prop.getProperty("browser");
         driverFactory = new DriverFactory();
-        driver = driverFactory.init_browser(browserName);
+        driver = driverFactory.init_driver(browserName);
 
     }
 
 
-    @After(order = 1)
+    @After(order = 0)
     public void quitBrowser() {
         driver.quit();
     }
 
     @After(order = 1)
     public void tearDown(Scenario scenario) {
-        if(scenario.isFailed()){
+        if (scenario.isFailed()) {
             String screenShotName = scenario.getName().replaceAll("", "_");
-           byte[] sourcePath = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
-           scenario.attach(sourcePath, "image/png", screenShotName);
+            byte[] sourcePath = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+            scenario.attach(sourcePath, "image/png", screenShotName);
         }
     }
 }

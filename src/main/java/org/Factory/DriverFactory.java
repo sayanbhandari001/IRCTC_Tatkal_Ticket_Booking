@@ -9,17 +9,17 @@ import org.openqa.selenium.safari.SafariDriver;
 
 public class DriverFactory extends ApplicationHooks {
 
-
-//    public WebDriver driver;
+    public WebDriver driver;
 
     public static ThreadLocal<WebDriver> tldriver = new ThreadLocal<>();
 
     //initializing the browser using provided browser details in Config file
-    public WebDriver init_browser(String browser) {
+    public WebDriver init_driver(String browser) {
 
         //Launching browser
         System.out.println("Browser Started is " + browser);
         if (browser.equals("chrome")) {
+
             tldriver.set(new ChromeDriver());
         } else if (browser.equals("firefox")) {
             tldriver.set(new FirefoxDriver());
