@@ -13,7 +13,6 @@ public class irctcBookingStepsExecutionPage {
 
     private loginPage loginPage = new loginPage(DriverFactory.getDriver());
 
-
     @Given("^User has Logged in successfully with proper login details$")
     public void user_has_logged_in_successfully_with_proper_login_details() {
 

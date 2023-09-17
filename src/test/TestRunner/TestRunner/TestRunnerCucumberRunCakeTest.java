@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
         monochrome=true,
         dryRun=false,
         tags = ("@IRCTCBooking")
+
 )
 
 
