@@ -14,14 +14,15 @@ public class irctcBookingStepsExecutionPage {
 
 
     private loginPage loginPage = new loginPage(DriverFactory.getDriver());
-    //private DriverFactory dfr = new DriverFactory ();
+    private DriverFactory dfr = new DriverFactory ();
 
 
     @Given("^User has Logged in successfully with proper login details$")
     public void user_has_logged_in_successfully_with_proper_login_details() {
-        DriverFactory.getDriver()
-                .get("google.com");
+        dfr.init_driver("chrome");
         loginPage.enterUserName(reader.init_prop().getProperty("irctcUsername"));
+
+        System.out.println(reader.init_prop().getProperty("irctcUsername"));
         loginPage.enterPassword("Opps@sam*95");
         loginPage.signInIRCTC();
         String title = loginPage.getLoginPageTitle();

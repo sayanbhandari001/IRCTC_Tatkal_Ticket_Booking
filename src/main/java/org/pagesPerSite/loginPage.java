@@ -22,8 +22,9 @@ public class loginPage {
     }
 
     //3. page actions: features(behavior) of the page the form of methods:
-    public void websiteURL() {
+    public String websiteURL() {
         driver.get(url);
+        return null;
     }
 
     public void loginAlertPopupFirstScreen() {
