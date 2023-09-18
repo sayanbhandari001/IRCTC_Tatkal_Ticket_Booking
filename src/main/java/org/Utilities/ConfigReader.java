@@ -14,7 +14,7 @@ public class ConfigReader {
         //Load properties File
         configProp = new Properties();
         try {
-            FileInputStream configPropfile = new FileInputStream("src/main/java/PleaseEnterUserInformationHere/config.properties");
+            FileInputStream configPropfile = new FileInputStream("config.properties");
             configProp.load(configPropfile);
         } catch (FileNotFoundException e) {
             e.printStackTrace();

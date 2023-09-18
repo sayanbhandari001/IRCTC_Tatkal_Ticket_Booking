@@ -3,13 +3,10 @@ package StepDefinitions;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import net.sourceforge.tess4j.TesseractException;
 import org.AppHooks.ApplicationHooks;
 import org.Factory.DriverFactory;
-import org.Utilities.ElementUtil;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.SearchContext;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.pagesPerSite.LoginPage;
@@ -37,22 +34,22 @@ public class IrctcBookingStepsExecutionPage {
     }
 
     public LoginPage loginPage = new LoginPage(DriverFactory.getDriver());
-    ElementUtil emUtil = new ElementUtil();
 //    private DriverFactory dfr = new DriverFactory ();
 
-
     @Given("^User has Logged in successfully with proper login details$")
-    public void user_has_logged_in_successfully_with_proper_login_details() throws IOException {
-        System.out.println("\n\n" +
-                "---------Application started with provided URL-----------" + loginPage.url);
+    public void user_has_logged_in_successfully_with_proper_login_details() throws IOException, TesseractException {
+        System.out.println("\n" +
+                "------Application started with provided URL--------\n" + loginPage.url + "\n");
         loginPage.websiteURL();
         loginPage.loginButton();
         waitExplicitly.until(ExpectedConditions.elementToBeClickable(loginPage.userNameInput()));
         loginPage.enterUserName(apk.getProperties().getProperty("irctcUsername"));
         loginPage.enterPassword(apk.getProperties().getProperty("irctcUserPassword"));
 
+        loginPage.enterCaptcaInput(loginPage.captchaReaderInfo());
 
         loginPage.signInIRCTC();
+
         String title = loginPage.getLoginPageTitle();
         System.out.println("Title of the page is " + title);
         Assert.assertTrue(title.contains("IRCTC Next Generation eTicketing System"));
@@ -63,7 +60,9 @@ public class IrctcBookingStepsExecutionPage {
     public void closed_popup_of_last_transaction_details_if_open() {
         //if popup displayed regarding accept
 
-
+//        if (!) {
+//
+//        }
         System.out.println("Hi");
     }
 

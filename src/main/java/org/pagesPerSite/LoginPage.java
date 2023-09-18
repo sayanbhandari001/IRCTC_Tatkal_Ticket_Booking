@@ -1,37 +1,31 @@
 package org.pagesPerSite;
 
+import net.sourceforge.tess4j.ITesseract;
+import net.sourceforge.tess4j.Tesseract;
+import net.sourceforge.tess4j.TesseractException;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.io.FileHandler;
 
-import java.time.Duration;
-
-import static org.Factory.DriverFactory.driver;
+import java.io.File;
+import java.io.IOException;
 
 public class LoginPage {
 
     public WebDriver driver;
+    public String captchaResult;
 
     //1. By locators -- Object Repository
     private By loginAlertPopupBeforeSignin = By.xpath("//button[text()='ok'");
     private By loginButton = By.xpath("//a[@aria-label='Click here to Login in application']");
     private By userInfo = By.xpath("//input[@formcontrolname='userid' and @placeholder='User Name']");
     private By password = By.xpath("//input[@formcontrolname='password' and @placeholder='Password']");
-    private By signInButton = By.xpath("//button[@type='submit' and contains(text(),'SIGN IN')]");
-    private By captaFill = By.xpath("//div[@class='captcha_div']");
+    private By captchaimage = By.xpath("//img[@class='captcha-img']");
+    private By signInButton = By.xpath("//button[normalize-space()='SIGN IN']");
+    private By captaFill = By.xpath("//input[@placeholder='Enter Captcha']");
     public String url = "https://www.irctc.co.in/nget/train-search";
-
-
-
-//    public static void waitForElement(WebDriver driver, WebElement element) {
-//    FluentWait<WebDriver> wait = new FluentWait<>(driver)
-//            .withTimeout(Duration.ofSeconds(30))
-//            .pollingEvery(Duration.ofMillis(500))
-//            .ignoring(NoSuchElementException.class);
-//
-//    wait.until(ExpectedConditions.visibilityOf(element));
-//}
-
 
     //2. Constructor of the page class:
     public LoginPage(WebDriver driver) {
@@ -41,7 +35,6 @@ public class LoginPage {
     //3. page actions: features(behavior) of the page the form of methods:
     public void websiteURL() {
         driver.get(url);
-
     }
 
     public void loginAlertPopupFirstScreen() {
@@ -56,7 +49,7 @@ public class LoginPage {
         driver.findElement(loginButton).click();
     }
 
-    public By userNameInput(){
+    public By userNameInput() {
         driver.findElement(userInfo);
         return userInfo;
     }
@@ -71,14 +64,40 @@ public class LoginPage {
         driver.findElement(password).sendKeys(pwd);
     }
 
-    public void userCaptcaInput(String captcha) {
+    public String enterCaptcaInput(String captcha) {
+        driver.findElement(captaFill).click();
+        driver.findElement(captaFill).clear();
         driver.findElement(captaFill).sendKeys(captcha);
+        return captcha;
     }
 
     public void signInIRCTC() {
         driver.findElement(signInButton).click();
     }
 
+    public String captchaReaderInfo() throws IOException, TesseractException {
+
+        WebElement captchaImageFile = driver.findElement(captchaimage);
+        File src = captchaImageFile.getScreenshotAs(OutputType.FILE);
+        String path = "captchaImage\\captcha.png";
+        FileHandler.copy(src, new File(path));
+
+//        ITesseract imageCaptchaScrappedFile = new Tesseract();
+//        String stringImageCaptchaScrappedFile = imageCaptchaScrappedFile.doOCR(new File(path));
+//        System.out.println("imageCaptchaScrappedFile" + stringImageCaptchaScrappedFile);
+
+        try {
+            File imageFile = new File(path);
+            Tesseract instance = new Tesseract();
+            instance.setDatapath("C:\\Users\\Sayan\\IdeaProjects\\SeleniumTestPractice\\IRCTC_Tatkal_Ticket_Booking\\tessdata");
+            captchaResult = instance.doOCR(imageFile);
+            captchaResult.trim();
+            //System.out.println(captchaResult);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return captchaResult;
+    }
 
 
     //600 sec -- for 10 mins
