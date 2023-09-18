@@ -2,6 +2,11 @@ package org.pagesPerSite;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+
+import static org.Factory.DriverFactory.driver;
 
 public class LoginPage {
 
@@ -14,7 +19,19 @@ public class LoginPage {
     private By password = By.xpath("//input[@formcontrolname='password' and @placeholder='Password']");
     private By signInButton = By.xpath("//button[@type='submit' and contains(text(),'SIGN IN')]");
     private By captaFill = By.xpath("//div[@class='captcha_div']");
-    private String url = "https://www.irctc.co.in/nget/train-search";
+    public String url = "https://www.irctc.co.in/nget/train-search";
+
+
+
+//    public static void waitForElement(WebDriver driver, WebElement element) {
+//    FluentWait<WebDriver> wait = new FluentWait<>(driver)
+//            .withTimeout(Duration.ofSeconds(30))
+//            .pollingEvery(Duration.ofMillis(500))
+//            .ignoring(NoSuchElementException.class);
+//
+//    wait.until(ExpectedConditions.visibilityOf(element));
+//}
+
 
     //2. Constructor of the page class:
     public LoginPage(WebDriver driver) {
@@ -36,10 +53,12 @@ public class LoginPage {
     }
 
     public void loginButton() {
-        System.out.println("driver " + driver );
-        System.out.println("loginButton" + loginButton);
-        System.out.println("findelement " + driver.findElement(loginButton));
         driver.findElement(loginButton).click();
+    }
+
+    public By userNameInput(){
+        driver.findElement(userInfo);
+        return userInfo;
     }
 
     public void enterUserName(String userLoginData) {
@@ -59,5 +78,9 @@ public class LoginPage {
     public void signInIRCTC() {
         driver.findElement(signInButton).click();
     }
+
+
+
+    //600 sec -- for 10 mins
 
 }

@@ -5,19 +5,29 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.AppHooks.ApplicationHooks;
 import org.Factory.DriverFactory;
+import org.Utilities.ElementUtil;
 import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.SearchContext;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.pagesPerSite.LoginPage;
 
 import java.io.IOException;
+import java.time.Duration;
+
+import static org.Factory.DriverFactory.driver;
 
 public class IrctcBookingStepsExecutionPage {
 
     //private ConfigReader reader;
 
+    public WebDriverWait waitExplicitly = new WebDriverWait(driver, Duration.ofSeconds(10));
+
     static ApplicationHooks apk = new ApplicationHooks();
 
     static {
-
         try {
             apk.getProperty();
         } catch (IOException e) {
@@ -27,19 +37,21 @@ public class IrctcBookingStepsExecutionPage {
     }
 
     public LoginPage loginPage = new LoginPage(DriverFactory.getDriver());
+    ElementUtil emUtil = new ElementUtil();
 //    private DriverFactory dfr = new DriverFactory ();
 
 
     @Given("^User has Logged in successfully with proper login details$")
     public void user_has_logged_in_successfully_with_proper_login_details() throws IOException {
-
+        System.out.println("\n\n" +
+                "---------Application started with provided URL-----------" + loginPage.url);
         loginPage.websiteURL();
-        System.out.println(loginPage);
         loginPage.loginButton();
+        waitExplicitly.until(ExpectedConditions.elementToBeClickable(loginPage.userNameInput()));
         loginPage.enterUserName(apk.getProperties().getProperty("irctcUsername"));
+        loginPage.enterPassword(apk.getProperties().getProperty("irctcUserPassword"));
 
-        //System.out.println(reader.init_prop().getProperty("irctcUsername"));
-        loginPage.enterPassword("Opps@sam*95");
+
         loginPage.signInIRCTC();
         String title = loginPage.getLoginPageTitle();
         System.out.println("Title of the page is " + title);
