@@ -3,36 +3,39 @@ package org.Factory;
 import org.AppHooks.ApplicationHooks;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
-public class DriverFactory extends ApplicationHooks {
+public class DriverFactory  {
 
-    public static ThreadLocal<WebDriver> tldriver = new ThreadLocal<>();
-    public WebDriver driver;
+    //public static ThreadLocal<WebDriver> tldriver = new ThreadLocal<>();
+    public static WebDriver driver;
 
     /*
         this is used to get the driver with threadlocal
      */
-    public static synchronized WebDriver getDriver() {
-        return tldriver.get();
+    public static WebDriver getDriver() {
+        return driver;
     }
 
     //initializing the browser using provided browser details in Config file
-    public WebDriver init_driver(String browser) {
+    public static WebDriver init_driver(String browser) {
 
         //Launching browser
         System.out.println("Browser Started is " + browser);
         if (browser.equals("chrome")) {
-            System.setProperty("webdriver.chrome.driver","src/test/browserfiles/chromedriver.exe");
-            tldriver.set(new ChromeDriver());
+            ChromeOptions options = new ChromeOptions();
+            System.setProperty("webdriver.chrome.driver", "src/test/browserfiles/chromedriver.exe");
+            options.addArguments("--disable-notifications");
+            driver = new ChromeDriver(options);
         } else if (browser.equals("firefox")) {
-            tldriver.set(new FirefoxDriver());
+            driver = new FirefoxDriver();
         } else if (browser.equals("ie")) {
-            tldriver.set(new InternetExplorerDriver());
+            driver = new InternetExplorerDriver();
         } else if (browser.equals("safari")) {
-            tldriver.set(new SafariDriver());
+            driver = new SafariDriver();
         } else {
             throw new RuntimeException("Please pass Browser Data in Config file " + browser);
         }

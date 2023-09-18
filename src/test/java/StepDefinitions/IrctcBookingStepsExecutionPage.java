@@ -3,26 +3,42 @@ package StepDefinitions;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.AppHooks.ApplicationHooks;
 import org.Factory.DriverFactory;
-import org.Utilities.ConfigReader;
 import org.junit.Assert;
-import org.pagesPerSite.loginPage;
+import org.pagesPerSite.LoginPage;
 
-public class irctcBookingStepsExecutionPage {
+import java.io.IOException;
 
-    private ConfigReader reader;
+public class IrctcBookingStepsExecutionPage {
 
+    //private ConfigReader reader;
 
-    private loginPage loginPage = new loginPage(DriverFactory.getDriver());
+    static ApplicationHooks apk = new ApplicationHooks();
+
+    static {
+
+        try {
+            apk.getProperty();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        apk.launchBrowser();
+    }
+
+    public LoginPage loginPage = new LoginPage(DriverFactory.getDriver());
 //    private DriverFactory dfr = new DriverFactory ();
 
 
     @Given("^User has Logged in successfully with proper login details$")
-    public void user_has_logged_in_successfully_with_proper_login_details() {
-        DriverFactory.getDriver().get("https://www.google.com");
-        loginPage.enterUserName(reader.init_prop().getProperty("irctcUsername"));
+    public void user_has_logged_in_successfully_with_proper_login_details() throws IOException {
 
-        System.out.println(reader.init_prop().getProperty("irctcUsername"));
+        loginPage.websiteURL();
+        System.out.println(loginPage);
+        loginPage.loginButton();
+        loginPage.enterUserName(apk.getProperties().getProperty("irctcUsername"));
+
+        //System.out.println(reader.init_prop().getProperty("irctcUsername"));
         loginPage.enterPassword("Opps@sam*95");
         loginPage.signInIRCTC();
         String title = loginPage.getLoginPageTitle();

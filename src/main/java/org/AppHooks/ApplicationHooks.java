@@ -19,11 +19,16 @@ public class ApplicationHooks {
     private WebDriver driver;
     private ConfigReader reader;
 
+    public Properties getProperties(){
+        return prop;
+    }
+
     @Before(order = 0)
     public void getProperty() throws IOException {
         reader = new ConfigReader();
         prop = reader.init_prop();
     }
+
 
     @Before(order = 1)
     public void launchBrowser() {
