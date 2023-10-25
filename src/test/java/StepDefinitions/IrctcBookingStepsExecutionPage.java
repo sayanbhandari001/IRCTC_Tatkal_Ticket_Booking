@@ -40,6 +40,7 @@ public class IrctcBookingStepsExecutionPage {
     public void user_has_logged_in_successfully_with_proper_login_details() throws IOException, TesseractException {
         System.out.println("\n" +
                 "------Application started with provided URL--------\n" + loginPage.url + "\n");
+        //loginPage.pageLoad();
         loginPage.websiteURL();
         loginPage.loginButton();
         waitExplicitly.until(ExpectedConditions.elementToBeClickable(loginPage.userNameInput()));
@@ -48,7 +49,7 @@ public class IrctcBookingStepsExecutionPage {
 
         loginPage.enterCaptcaInput(loginPage.captchaReaderInfo());
 
-        loginPage.signInIRCTC();
+        //loginPage.signInIRCTC();
 
         String title = loginPage.getLoginPageTitle();
         System.out.println("Title of the page is " + title);

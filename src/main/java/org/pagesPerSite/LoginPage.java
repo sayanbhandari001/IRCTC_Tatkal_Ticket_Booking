@@ -11,6 +11,7 @@ import org.openqa.selenium.io.FileHandler;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
 
 public class LoginPage {
 
@@ -35,6 +36,10 @@ public class LoginPage {
     //3. page actions: features(behavior) of the page the form of methods:
     public void websiteURL() {
         driver.get(url);
+    }
+
+    public void pageLoad(){
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
     }
 
     public void loginAlertPopupFirstScreen() {
@@ -89,7 +94,7 @@ public class LoginPage {
         try {
             File imageFile = new File(path);
             Tesseract instance = new Tesseract();
-            instance.setDatapath("C:\\Users\\Sayan\\IdeaProjects\\SeleniumTestPractice\\IRCTC_Tatkal_Ticket_Booking\\tessdata");
+            instance.setDatapath("D:\\01.eclipse-jee-2022-09-R-win32-x86_64\\eclipse-workspace\\IRCTC_Tatkal_Ticket_Booking\\tessdata");
             captchaResult = instance.doOCR(imageFile);
             captchaResult.trim();
             //System.out.println(captchaResult);
