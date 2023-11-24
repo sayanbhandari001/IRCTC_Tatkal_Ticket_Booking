@@ -1,6 +1,7 @@
 package org.pagesPerSite;
 
 import net.sourceforge.tess4j.TesseractException;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebDriver;
@@ -16,17 +17,21 @@ public class LoginPage {
 
     public WebDriver driver;
     public String captchaResult;
+    public String url = "https://www.irctc.co.in/nget/train-search";
+    public String jOptionAction;
 
     //1. By locators -- Object Repository
     private By loginAlertPopupBeforeSignin = By.xpath("//button[text()='ok'");
     private By loginButton = By.xpath("//a[@aria-label='Click here to Login in application']");
     private By userInfo = By.xpath("//input[@formcontrolname='userid' and @placeholder='User Name']");
     private By password = By.xpath("//input[@formcontrolname='password' and @placeholder='Password']");
-    private By captchaimage = By.xpath("//div[@class='captcha_div']//img[@class='captcha-img']");
+    private By captchaimage = By.xpath("//img[@class='captcha-img']");
     private By signInButton = By.xpath("//button[normalize-space()='SIGN IN']");
     private By captaFill = By.xpath("//input[@placeholder='Enter Captcha']");
-    public String url = "https://www.irctc.co.in/nget/train-search";
-    String n;
+    public By captcaRefreshButton = By.xpath("//a[@aria-label='Click to refresh Captcha']");
+    public By invalidCaptchaInput = By.xpath("//div[@class='loginError' and contains(text(),'Invalid Captcha')]");
+    public By loginSuccessful = By.xpath("//span[contains(text(),'Welcome')]");
+
 
     //2. Constructor of the page class:
     public LoginPage(WebDriver driver) {
@@ -76,8 +81,14 @@ public class LoginPage {
         return captcha;
     }
 
-    public void signInIRCTC() {
+    public boolean signInIRCTC() {
         driver.findElement(signInButton).click();
+        return false;
+    }
+
+    public By captcaRefresh() {
+        driver.findElement(captcaRefreshButton).click();
+        return null;
     }
 
     public String captchaReaderInfo() throws IOException, TesseractException {
@@ -94,10 +105,7 @@ public class LoginPage {
             j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             j.setVisible(true);
             j.setVisible(false);
-            n = (String) JOptionPane.showInputDialog(j, "Enter the Captcha Value",
-                    "Prove that you are a Human", JOptionPane.QUESTION_MESSAGE, icon,
-                    null,
-                    null);
+            jOptionAction = (String) JOptionPane.showInputDialog(j, "Enter the Captcha Value", "Prove that you are a Human", JOptionPane.QUESTION_MESSAGE, icon, null, null);
         } catch (Exception e) {
             throw new RuntimeException("Closed popup or input Faliure");
         }
@@ -115,13 +123,28 @@ public class LoginPage {
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
-        return n;
+        return jOptionAction;
     }
 
-    public static void main(String[] args) {
 
+    public boolean verifyLoginUnsuccessful() {
+        WebElement invalidCaptchaFound = driver.findElement(invalidCaptchaInput);
+        String invalidCaptchaFoundDisplayed = invalidCaptchaFound.getText();
+        //invalidCaptchaFound.isDisplayed();
+        if (invalidCaptchaFoundDisplayed.isEmpty()) {
+            System.out.println(invalidCaptchaFoundDisplayed);
+
+            System.out.println("Captcha Input Successful");
+            return true;
+        } else {
+            System.out.println("Captcha Input UnSuccessful");
+        }
+        return true;
     }
 
-    //600 sec -- for 10 mins
-
+    public boolean verifuLoginSucessful() {
+        WebElement loginSuccessfultext = driver.findElement(loginSuccessful);
+        Assert.assertTrue(loginSuccessfultext.isDisplayed());
+        return true;
+    }
 }

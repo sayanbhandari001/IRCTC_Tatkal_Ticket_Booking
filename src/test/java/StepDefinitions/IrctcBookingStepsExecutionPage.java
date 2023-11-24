@@ -6,7 +6,6 @@ import io.cucumber.java.en.When;
 import net.sourceforge.tess4j.TesseractException;
 import org.AppHooks.ApplicationHooks;
 import org.Factory.DriverFactory;
-import org.junit.Assert;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.pagesPerSite.LoginPage;
@@ -37,7 +36,7 @@ public class IrctcBookingStepsExecutionPage {
 //    private DriverFactory dfr = new DriverFactory ();
 
     @Given("^User has Logged in successfully with proper login details$")
-    public void user_has_logged_in_successfully_with_proper_login_details() throws IOException, TesseractException {
+    public void user_has_logged_in_successfully_with_proper_login_details() throws IOException, TesseractException, InterruptedException {
         System.out.println("\n" +
                 "------Application started with provided URL--------\n" + loginPage.url + "\n");
         //loginPage.pageLoad();
@@ -47,28 +46,33 @@ public class IrctcBookingStepsExecutionPage {
         loginPage.enterUserName(apk.getProperties().getProperty("irctcUsername"));
         loginPage.enterPassword(apk.getProperties().getProperty("irctcUserPassword"));
 
-        loginPage.enterCaptcaInput(loginPage.captchaReaderInfo());
+        for (int i = 0; i < 3; i++) {
 
-        //loginPage.enterCaptcaInput(
-        //  write for Logic of Popup
-        // )
-
-        //loginPage.signInIRCTC();
-
-        String title = loginPage.getLoginPageTitle();
-        System.out.println("Title of the page is " + title);
-        Assert.assertTrue(title.contains("IRCTC Next Generation eTicketing System"));
-
+            loginPage.enterCaptcaInput(loginPage.captchaReaderInfo());
+            loginPage.signInIRCTC();
+                if (loginPage.verifyLoginUnsuccessful()) {
+                    //Thread.sleep(1000);
+                    //waitExplicitly.until(ExpectedConditions.elementToBeClickable(loginPage.captcaRefresh()));
+                    loginPage.captcaRefresh();
+                    loginPage.enterCaptcaInput(loginPage.captchaReaderInfo());
+                    loginPage.signInIRCTC();
+                } else {
+                    break;
+                }
+            break;
+        }
     }
 
     @Given("^closed popup of last transaction details if open$")
     public void closed_popup_of_last_transaction_details_if_open() {
-        //if popup displayed regarding accept
+        System.out.println("Not applicable as no popup displayed");
 
-//        if (!) {
-//
-//        }
-        System.out.println("Hi");
+        if(loginPage.verifuLoginSucessful()) {
+            System.out.println("--------------------------- Login Successful ---------------------------");
+        }else
+        {
+            System.out.println("--------------------------- Login Faliure ---------------------------");
+        }
     }
 
     @Given("I select {string} and {string} destination with next corresponding Date")
