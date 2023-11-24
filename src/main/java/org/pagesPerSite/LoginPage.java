@@ -1,7 +1,5 @@
 package org.pagesPerSite;
 
-import net.sourceforge.tess4j.ITesseract;
-import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
@@ -9,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.io.FileHandler;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
@@ -23,10 +22,11 @@ public class LoginPage {
     private By loginButton = By.xpath("//a[@aria-label='Click here to Login in application']");
     private By userInfo = By.xpath("//input[@formcontrolname='userid' and @placeholder='User Name']");
     private By password = By.xpath("//input[@formcontrolname='password' and @placeholder='Password']");
-    private By captchaimage = By.xpath("//img[@class='captcha-img']");
+    private By captchaimage = By.xpath("//div[@class='captcha_div']//img[@class='captcha-img']");
     private By signInButton = By.xpath("//button[normalize-space()='SIGN IN']");
     private By captaFill = By.xpath("//input[@placeholder='Enter Captcha']");
     public String url = "https://www.irctc.co.in/nget/train-search";
+    String n;
 
     //2. Constructor of the page class:
     public LoginPage(WebDriver driver) {
@@ -38,7 +38,7 @@ public class LoginPage {
         driver.get(url);
     }
 
-    public void pageLoad(){
+    public void pageLoad() {
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
     }
 
@@ -84,26 +84,43 @@ public class LoginPage {
 
         WebElement captchaImageFile = driver.findElement(captchaimage);
         File src = captchaImageFile.getScreenshotAs(OutputType.FILE);
-        String path = "captchaImage\\captcha.png";
-        FileHandler.copy(src, new File(path));
+        String captchaPath = "captchaImage\\captcha.png";
+        FileHandler.copy(src, new File(captchaPath));
+
+        try {
+            ImageIcon icon = new ImageIcon(captchaPath);
+            JFrame j = new JFrame();
+            j.setAlwaysOnTop(true);
+            j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            j.setVisible(true);
+            j.setVisible(false);
+            n = (String) JOptionPane.showInputDialog(j, "Enter the Captcha Value",
+                    "Prove that you are a Human", JOptionPane.QUESTION_MESSAGE, icon,
+                    null,
+                    null);
+        } catch (Exception e) {
+            throw new RuntimeException("Closed popup or input Faliure");
+        }
 
 //        ITesseract imageCaptchaScrappedFile = new Tesseract();
 //        String stringImageCaptchaScrappedFile = imageCaptchaScrappedFile.doOCR(new File(path));
 //        System.out.println("imageCaptchaScrappedFile" + stringImageCaptchaScrappedFile);
-
-        try {
-            File imageFile = new File(path);
-            Tesseract instance = new Tesseract();
-            instance.setDatapath("D:\\01.eclipse-jee-2022-09-R-win32-x86_64\\eclipse-workspace\\IRCTC_Tatkal_Ticket_Booking\\tessdata");
-            captchaResult = instance.doOCR(imageFile);
-            captchaResult.trim();
-            //System.out.println(captchaResult);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return captchaResult;
+//        try {
+//            File imageFile = new File(path);
+//            Tesseract instance = new Tesseract();
+//            instance.setDatapath("D:\\01.eclipse-jee-2022-09-R-win32-x86_64\\eclipse-workspace\\IRCTC_Tatkal_Ticket_Booking\\tessdata");
+//            captchaResult = instance.doOCR(imageFile);
+//            captchaResult.trim();
+//            //System.out.println(captchaResult);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+        return n;
     }
 
+    public static void main(String[] args) {
+
+    }
 
     //600 sec -- for 10 mins
 

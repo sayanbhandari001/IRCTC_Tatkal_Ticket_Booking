@@ -49,6 +49,10 @@ public class IrctcBookingStepsExecutionPage {
 
         loginPage.enterCaptcaInput(loginPage.captchaReaderInfo());
 
+        //loginPage.enterCaptcaInput(
+        //  write for Logic of Popup
+        // )
+
         //loginPage.signInIRCTC();
 
         String title = loginPage.getLoginPageTitle();
