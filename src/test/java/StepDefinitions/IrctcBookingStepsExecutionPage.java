@@ -46,19 +46,16 @@ public class IrctcBookingStepsExecutionPage {
         loginPage.enterUserName(apk.getProperties().getProperty("irctcUsername"));
         loginPage.enterPassword(apk.getProperties().getProperty("irctcUserPassword"));
 
-        for (int i = 0; i < 3; i++) {
-
-            loginPage.enterCaptcaInput(loginPage.captchaReaderInfo());
-            loginPage.signInIRCTC();
-                if (loginPage.verifyLoginUnsuccessful()) {
-                    //Thread.sleep(1000);
-                    //waitExplicitly.until(ExpectedConditions.elementToBeClickable(loginPage.captcaRefresh()));
-                    loginPage.captcaRefresh();
-                    loginPage.enterCaptcaInput(loginPage.captchaReaderInfo());
-                    loginPage.signInIRCTC();
-                } else {
-                    break;
-                }
+        loginPage.enterCaptcaInput(loginPage.captchaReaderInfo());
+        loginPage.signInIRCTC();
+        for (int i = 0; i <= 3; i++) {
+            if (loginPage.verifyLoginUnsuccessful()) {
+                Thread.sleep(1000);
+                waitExplicitly.until(ExpectedConditions.elementToBeClickable(loginPage.captcaRefresh()));
+                loginPage.captcaRefresh();
+                loginPage.enterCaptcaInput(loginPage.captchaReaderInfo());
+                loginPage.signInIRCTC();
+            }
             break;
         }
     }
@@ -67,10 +64,9 @@ public class IrctcBookingStepsExecutionPage {
     public void closed_popup_of_last_transaction_details_if_open() {
         System.out.println("Not applicable as no popup displayed");
 
-        if(loginPage.verifuLoginSucessful()) {
+        if (loginPage.verifuLoginSucessful()) {
             System.out.println("--------------------------- Login Successful ---------------------------");
-        }else
-        {
+        } else {
             System.out.println("--------------------------- Login Faliure ---------------------------");
         }
     }

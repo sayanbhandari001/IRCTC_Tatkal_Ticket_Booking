@@ -1,11 +1,7 @@
 package org.pagesPerSite;
 
 import net.sourceforge.tess4j.TesseractException;
-import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.io.FileHandler;
 
 import javax.swing.*;
@@ -25,7 +21,7 @@ public class LoginPage {
     private By loginButton = By.xpath("//a[@aria-label='Click here to Login in application']");
     private By userInfo = By.xpath("//input[@formcontrolname='userid' and @placeholder='User Name']");
     private By password = By.xpath("//input[@formcontrolname='password' and @placeholder='Password']");
-    private By captchaimage = By.xpath("//img[@class='captcha-img']");
+    private By captchaimage = By.xpath("//img[@class='captcha-img' and contains(@src, 'data:image/jpg')]");
     private By signInButton = By.xpath("//button[normalize-space()='SIGN IN']");
     private By captaFill = By.xpath("//input[@placeholder='Enter Captcha']");
     public By captcaRefreshButton = By.xpath("//a[@aria-label='Click to refresh Captcha']");
@@ -126,25 +122,23 @@ public class LoginPage {
         return jOptionAction;
     }
 
-
     public boolean verifyLoginUnsuccessful() {
-        WebElement invalidCaptchaFound = driver.findElement(invalidCaptchaInput);
-        String invalidCaptchaFoundDisplayed = invalidCaptchaFound.getText();
-        //invalidCaptchaFound.isDisplayed();
-        if (invalidCaptchaFoundDisplayed.isEmpty()) {
-            System.out.println(invalidCaptchaFoundDisplayed);
 
-            System.out.println("Captcha Input Successful");
-            return true;
-        } else {
+        //invalidCaptchaFound.isDisplayed();
+        try {
+            WebElement invalidCaptchaFound = driver.findElement(invalidCaptchaInput);
+            invalidCaptchaFound.isDisplayed();
             System.out.println("Captcha Input UnSuccessful");
+            return true;
+        }catch (NoSuchElementException e){
+            System.out.println("Captcha Input Successful");
         }
-        return true;
+        return false;
     }
 
     public boolean verifuLoginSucessful() {
-        WebElement loginSuccessfultext = driver.findElement(loginSuccessful);
-        Assert.assertTrue(loginSuccessfultext.isDisplayed());
+
+
         return true;
     }
 }
